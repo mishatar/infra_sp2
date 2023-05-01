@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework import status, permissions, viewsets, filters
 from rest_framework_simplejwt.tokens import AccessToken
 from api.permissions import IsAdminCustomUser
-from api_yamdb.settings import DEFAULT_FROM_EMAIL
 
 from .models import CustomUser
 from .serializers import (ConfirmationSerializer, CustomUserSerializer,
@@ -28,12 +27,12 @@ def get_confirmation_code(request):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
-        
+
     if not CustomUser.objects.filter(
         username=request.data['username'], email=request.data['email']
     ).exists():
         serializer = ConfirmationSerializer(data=request.data)
-        
+
         if not serializer.is_valid():
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST

@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 ROLES = (('user', 'юзер'), ('moderator', 'модератор'), ('admin', 'админ'),)
 USER = 'user'
 
+
 def validate_username_me(username):
     if username == 'me':
         raise ValidationError('Нельзя использовать me')
